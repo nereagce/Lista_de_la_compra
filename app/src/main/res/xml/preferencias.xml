@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:key="cat_datos_personales"
+        app:title="Datos Personales">
+        <SwitchPreferenceCompat
+            app:key="switch"
+            app:title="¿Matricula activa?"/>
+        <EditTextPreference
+            app:key="nombre"
+            app:title="Nombre"
+            app:summary="Introduce tu nombre de usuario:"
+            app:dialogTitle="Introduce un nombre:"
+            app:dialogIcon="@mipmap/ic_launcher" />
+        <CheckBoxPreference
+            app:key="mayor"
+            app:title="¿Eres mayor de edad?"
+            app:summary="Marca esta opción si eres mayor de edad" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Preference category">
+
+        <EditTextPreference
+            android:defaultValue="true"
+            android:key="edit_text_preference_1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Edit text preference" />
+    </PreferenceCategory>
+</PreferenceScreen>
