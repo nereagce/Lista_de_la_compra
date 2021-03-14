@@ -13,7 +13,9 @@ public class BaseDeDatos extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE Productos ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'nombre' VARCHAR(255), 'cantidad' INTEGER, 'cantMin' INTEGER, 'caducidad' DATE)");
+        db.execSQL("CREATE TABLE Usuarios ('usuario' VARCHAR(50) PRIMARY KEY NOT NULL,'nombre' VARCHAR(200), 'email' VARCHAR(100), 'contraseña' VARCHAR(100))");
+        db.execSQL("CREATE TABLE Productos ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'nombre' VARCHAR(100), 'cantMin' INTEGER, 'userID' VARCHAR(50) REFERENCES Usuarios(usuario) ON UPDATE CASCADE)");
+        db.execSQL("CREATE TABLE Cantidades ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'cant' INTEGER, 'caducidad' DATE, 'productoID' INTEGER REFERENCES Productos(id) ON UPDATE CASCADE)");
     }
 
     @Override

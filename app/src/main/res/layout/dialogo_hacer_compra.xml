@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="306dp"
+        android:layout_height="203dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioMerc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mercadona" />
+
+        <RadioButton
+            android:id="@+id/radioCarrefour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Carrefour" />
+
+        <RadioButton
+            android:id="@+id/radioBM"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BM" />
+
+        <RadioButton
+            android:id="@+id/radioEros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eroski" />
+    </RadioGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>
