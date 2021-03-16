@@ -44,13 +44,13 @@ public class DialogHacerCompra extends DialogFragment {
                 RadioButton rb= (RadioButton) elaspecto.findViewById(id);
                 String spr = rb.getText().toString();
                 if(spr.equals("Mercadona")){
-                    url = "";
+                    url = "https://tienda.mercadona.es/";
                 } else if(spr.equals("Carrefour")){
-                    url = "";
+                    url = "https://www.carrefour.es/";
                 } else if(spr.equals("BM")){
-                    url = "";
+                    url = "https://www.online.bmsupermercados.es/bm/#!Home";
                 } else if(spr.equals("Eroski")){
-                    url = "";
+                    url = "https://supermercado.eroski.es/";
                 }
                 miListener.alpulsarAbrir(url);
             }

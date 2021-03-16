@@ -1,6 +1,7 @@
 package com.example.listadelacompra;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,6 +11,10 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MisProductos extends AppCompatActivity implements DialogoAñadirProducto.ListenerdelDialogo, DialogoEliminarProducto.ListenerdelDialogo{
@@ -58,14 +63,46 @@ public class MisProductos extends AppCompatActivity implements DialogoAñadirPro
 
 
     @Override
-    public void alpulsarAñadir(String nombre, String cant) {
+    public void alpulsarAñadir(String nombre, String cant, String date) {
         BaseDeDatos gestorDB = new BaseDeDatos (this, "miDB", null, 1);
-        SQLiteDatabase bd = gestorDB.getWritableDatabase();
-        System.out.println(nombre+cant);
+        SQLiteDatabase bdR = gestorDB.getReadableDatabase();
+        SQLiteDatabase bdW = gestorDB.getWritableDatabase();
+
+        Cursor c = bdR.rawQuery("SELECT p.id FROM Productos AS p WHERE p.userID='nereagce' AND p.nombre='"+nombre+"'", null);
+        int id;
+        if(!c.moveToNext()){
+            ContentValues nuevo = new ContentValues();
+            nuevo.put("nombre", nombre);
+
+            BufferedReader ficherointerno = null;
+            String nombreUsuario="";
+            try {
+                ficherointerno = new BufferedReader(new InputStreamReader(
+                        openFileInput("nombreUsuario.txt")));
+                nombreUsuario = ficherointerno.readLine();
+                ficherointerno.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            nuevo.put("userID", nombreUsuario);
+            bdW.insert("Productos", null, nuevo);
+            Cursor cu = bdR.rawQuery("SELECT p.id AS id FROM Productos AS p WHERE p.userID='nereagce' AND p.nombre='"+nombre+"'", null);
+            cu.moveToNext();
+            id = cu.getInt(cu.getColumnIndex("id"));
+        }else{
+            id = c.getInt(c.getColumnIndex("id"));
+        }
         ContentValues nuevo = new ContentValues();
-        nuevo.put("nombre", nombre);
-        nuevo.put("cantidad", cant);
-        bd.insert("Productos", null, nuevo);
+        nuevo.put("cant", cant);
+        nuevo.put("productoID", id);
+        nuevo.put("caducidad", date);
+        bdW.insert("Cantidades", null, nuevo);
+
+        Intent i = new Intent (this, MisProductos.class);
+        startActivity(i);
+
+        this.recreate();
     }
 
     @Override

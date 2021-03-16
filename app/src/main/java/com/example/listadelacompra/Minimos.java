@@ -38,7 +38,7 @@ public class Minimos extends AppCompatActivity implements DialogoAñadirMinimo.L
             nombres.add(nom);
         }
         ListView productos= (ListView) findViewById(R.id.listMinimos);
-        MinimosListView eladap= new MinimosListView(getApplicationContext(),nombres,cantidades,botones);
+        MinimosListView eladap= new MinimosListView(getApplicationContext(),nombres,cantidades);
         productos.setAdapter(eladap);
     }
 
@@ -57,6 +57,11 @@ public class Minimos extends AppCompatActivity implements DialogoAñadirMinimo.L
         modificacion.put("cantMin",cant);
         String[] argumentos = new String[] {nom, "nereagce"}; //HAY QUE CAMBIAR EL USER
         bd.update("Productos", modificacion, "nombre=? AND userID=?", argumentos);
+
+        Intent i = new Intent (this, Minimos.class);
+        startActivity(i);
+
+        this.recreate();
     }
 
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,11 +17,6 @@ public class MainActivity extends AppCompatActivity implements DialogHacerCompra
         setContentView(R.layout.activity_main);
     }
 
-    public void configurar(View view){
-        //cambiar a la actividad de config
-        Intent i = new Intent (this, Configuracion.class);
-        startActivity(i);
-    }
 
     public void misProductos(View view){
         //cambiar a la actividad de mis productos
@@ -48,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements DialogHacerCompra
 
     @Override
     public void alpulsarAbrir(String url) {
-
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(i);
     }
 }

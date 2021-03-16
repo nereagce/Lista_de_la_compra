@@ -12,11 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class DialogoAñadirProducto extends DialogFragment {
     ListenerdelDialogo miListener;
 
     public interface ListenerdelDialogo {
-        void alpulsarAñadir(String nom, String cant);
+        void alpulsarAñadir(String nom, String cant, String date) throws IOException;
     }
     @NonNull
     @Override
@@ -38,11 +41,17 @@ public class DialogoAñadirProducto extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 EditText nombre= (EditText) elaspecto.findViewById(R.id.prodAñadTxt);
                 EditText cant= (EditText) elaspecto.findViewById(R.id.cantAñadTxt);
-                miListener.alpulsarAñadir(nombre.getText().toString(),cant.getText().toString());
+                EditText date= (EditText) elaspecto.findViewById(R.id.dateTxt);
+                try {
+                    miListener.alpulsarAñadir(nombre.getText().toString(),cant.getText().toString(),date.getText().toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         builder.setNegativeButton("Cancelar", null);
         builder.setView(elaspecto);
+
 
         return builder.create();
     }

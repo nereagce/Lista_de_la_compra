@@ -1,15 +1,18 @@
 package com.example.listadelacompra;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.EditText;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 
 public class Login extends AppCompatActivity {
     @Override
@@ -18,7 +21,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login);
     }
 
-    public void logIn(View view){
+    public void logIn(View view) throws IOException {
         //comprobar que existe la cuenta, si si llevar a main, si no error
         String[] campos = new String[] {"usuario", "contraseña"};
         EditText userTxt = (EditText) findViewById(R.id.userTxt);
@@ -38,8 +41,12 @@ public class Login extends AppCompatActivity {
         }else{
             //ERROR
         }
-        cu.close();
         bd.close();
+        OutputStreamWriter fichero = new OutputStreamWriter(openFileOutput("nombreUsuario.txt",
+                Context.MODE_PRIVATE));
+        fichero.write(cu.getString(cu.getColumnIndex("usuario")));
+        fichero.close();
+        cu.close();
     }
 
     public void registrarse(View view){

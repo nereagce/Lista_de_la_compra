@@ -3,6 +3,7 @@
     package="com.example.listadelacompra">
 
     <application
+        android:launchMode="singleTop"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,8 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ListaDeLaCompra">
         <activity android:name=".MainActivity">
-        </activity>
-        <activity android:name=".Configuracion" >
         </activity>
         <activity android:name=".GenerarLista" >
         </activity>

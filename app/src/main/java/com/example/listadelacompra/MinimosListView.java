@@ -16,12 +16,10 @@ public class MinimosListView extends BaseAdapter {
     private LayoutInflater inflater;
     private ArrayList<String> prod;
     private ArrayList<Integer> min;
-    private ArrayList<ImageButton> btn;
-    public MinimosListView(Context pcontext, ArrayList<String> pprod, ArrayList<Integer> pmin, ArrayList<ImageButton> pbtn) {
+    public MinimosListView(Context pcontext, ArrayList<String> pprod, ArrayList<Integer> pmin) {
         contexto = pcontext;
         prod = pprod;
         min=pmin;
-        btn=pbtn;
         inflater= (LayoutInflater) contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -45,11 +43,10 @@ public class MinimosListView extends BaseAdapter {
         view = inflater.inflate(R.layout.minimos_lista,null);
         TextView producto = (TextView) view.findViewById(R.id.nomprodText);
         TextView cantidad =(TextView) view.findViewById(R.id.cantminText);
-        ImageButton boton = (ImageButton) view.findViewById(R.id.editBtn);
         producto.setText(prod.get(position));
         String k = String.valueOf(min.get(position));
         cantidad.setText(k);
-        ImageButton c = btn.get(position);
+        //ImageButton c = btn.get(position);
         //boton.set
 
         return view;

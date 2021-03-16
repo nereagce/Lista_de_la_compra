@@ -33,7 +33,7 @@ public class DialogoAñadirMinimo extends DialogFragment {
 
         miListener =(ListenerdelDialogo) getActivity();
 
-        builder.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Añadir", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 EditText nombre= (EditText) elaspecto.findViewById(R.id.prodMinTxt);
