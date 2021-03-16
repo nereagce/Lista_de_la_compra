@@ -32,7 +32,6 @@ public class Login extends AppCompatActivity {
 
         BaseDeDatos GestorDB = new BaseDeDatos (this, "miBD", null, 1);
         SQLiteDatabase bd = GestorDB.getReadableDatabase();
-        //Cursor cu = bd.query("Usuarios",campos,"'usuario'=? AND 'contraseña'=?",argumentos,null,null,null);
         Cursor cu = bd.rawQuery("SELECT usuario, contraseña FROM Usuarios AS u WHERE u.usuario='"+user+"' AND u.contraseña='"+pass+"'",null);
 
         if(cu.moveToNext()){

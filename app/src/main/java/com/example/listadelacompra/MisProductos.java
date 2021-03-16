@@ -26,10 +26,18 @@ public class MisProductos extends AppCompatActivity implements DialogoAñadirPro
         BaseDeDatos gestorDB = new BaseDeDatos (this, "miDB", null, 1);
         SQLiteDatabase bd = gestorDB.getReadableDatabase();
 
-//HAY QUE CAMBIAR LA CONSULTA
-        String[] campos = new String[] {"nombre", "cantidad"};
-        //Cursor c = bd.query("Productos",campos,null,null,null,null,null);
-        Cursor c = bd.rawQuery("SELECT n.nombre, c.caducidad, c.cant FROM (SELECT p.id, p.nombre FROM Productos AS p WHERE userID='nereagce') AS n INNER JOIN Cantidades AS c ON n.id = c.productoID",null);
+        BufferedReader ficherointerno = null;
+        String nombreUsuario="";
+        try {
+            ficherointerno = new BufferedReader(new InputStreamReader(
+                    openFileInput("nombreUsuario.txt")));
+            nombreUsuario = ficherointerno.readLine();
+            ficherointerno.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Cursor c = bd.rawQuery("SELECT n.nombre, c.caducidad, c.cant FROM (SELECT p.id, p.nombre FROM Productos AS p WHERE userID='"+nombreUsuario+"') AS n INNER JOIN Cantidades AS c ON n.id = c.productoID",null);
         ArrayList<Integer> cantidades = new ArrayList<Integer>();
         ArrayList<String> nombres = new ArrayList<String>();
         ArrayList<String> caducidades = new ArrayList<String>();
@@ -68,23 +76,22 @@ public class MisProductos extends AppCompatActivity implements DialogoAñadirPro
         SQLiteDatabase bdR = gestorDB.getReadableDatabase();
         SQLiteDatabase bdW = gestorDB.getWritableDatabase();
 
-        Cursor c = bdR.rawQuery("SELECT p.id FROM Productos AS p WHERE p.userID='nereagce' AND p.nombre='"+nombre+"'", null);
+        BufferedReader ficherointerno = null;
+        String nombreUsuario="";
+        try {
+            ficherointerno = new BufferedReader(new InputStreamReader(
+                    openFileInput("nombreUsuario.txt")));
+            nombreUsuario = ficherointerno.readLine();
+            ficherointerno.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Cursor c = bdR.rawQuery("SELECT p.id FROM Productos AS p WHERE p.userID='"+nombreUsuario+"' AND p.nombre='"+nombre+"'", null);
         int id;
         if(!c.moveToNext()){
             ContentValues nuevo = new ContentValues();
             nuevo.put("nombre", nombre);
-
-            BufferedReader ficherointerno = null;
-            String nombreUsuario="";
-            try {
-                ficherointerno = new BufferedReader(new InputStreamReader(
-                        openFileInput("nombreUsuario.txt")));
-                nombreUsuario = ficherointerno.readLine();
-                ficherointerno.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
             nuevo.put("userID", nombreUsuario);
             bdW.insert("Productos", null, nuevo);
             Cursor cu = bdR.rawQuery("SELECT p.id AS id FROM Productos AS p WHERE p.userID='nereagce' AND p.nombre='"+nombre+"'", null);
@@ -99,10 +106,8 @@ public class MisProductos extends AppCompatActivity implements DialogoAñadirPro
         nuevo.put("caducidad", date);
         bdW.insert("Cantidades", null, nuevo);
 
-        Intent i = new Intent (this, MisProductos.class);
-        startActivity(i);
-
-        this.recreate();
+        finish();
+        startActivity(getIntent());
     }
 
     @Override

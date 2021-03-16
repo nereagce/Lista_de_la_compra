@@ -12,6 +12,9 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,9 +28,21 @@ public class Minimos extends AppCompatActivity implements DialogoAñadirMinimo.L
         BaseDeDatos gestorDB = new BaseDeDatos (this, "miDB", null, 1);
         SQLiteDatabase bd = gestorDB.getReadableDatabase();
 
-        //HAY QUE CAMBIAR LA CONSULTA (FALTAN LOS BOTONES)
+        BufferedReader ficherointerno = null;
+        String nombreUsuario="";
+        try {
+            ficherointerno = new BufferedReader(new InputStreamReader(
+                    openFileInput("nombreUsuario.txt")));
+            nombreUsuario = ficherointerno.readLine();
+            ficherointerno.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //HAY QUE CAMBIAR LA CONSULTA
         String[] campos = new String[] {"nombre", "cantMin"};
-        Cursor c = bd.query("Productos",campos,null,null,null,null,null);
+        String[] argumentos = new String[] {nombreUsuario};
+        Cursor c = bd.query("Productos",campos,"userID=?",argumentos,null,null,null);
         ArrayList<String> nombres = new ArrayList<String>();
         ArrayList<Integer> cantidades = new ArrayList<Integer>();
         ArrayList<ImageButton> botones = new ArrayList<ImageButton>();
@@ -53,15 +68,24 @@ public class Minimos extends AppCompatActivity implements DialogoAñadirMinimo.L
         BaseDeDatos gestorDB = new BaseDeDatos (this, "miDB", null, 1);
         SQLiteDatabase bd = gestorDB.getWritableDatabase();
 
+        BufferedReader ficherointerno = null;
+        String nombreUsuario="";
+        try {
+            ficherointerno = new BufferedReader(new InputStreamReader(
+                    openFileInput("nombreUsuario.txt")));
+            nombreUsuario = ficherointerno.readLine();
+            ficherointerno.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         ContentValues modificacion = new ContentValues();
         modificacion.put("cantMin",cant);
-        String[] argumentos = new String[] {nom, "nereagce"}; //HAY QUE CAMBIAR EL USER
+        String[] argumentos = new String[] {nom, nombreUsuario};
         bd.update("Productos", modificacion, "nombre=? AND userID=?", argumentos);
 
-        Intent i = new Intent (this, Minimos.class);
-        startActivity(i);
-
-        this.recreate();
+        finish();
+        startActivity(getIntent());
     }
 
 }
