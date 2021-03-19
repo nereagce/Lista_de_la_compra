@@ -94,17 +94,29 @@ public class MisProductos extends AppCompatActivity implements DialogoAñadirPro
             nuevo.put("nombre", nombre);
             nuevo.put("userID", nombreUsuario);
             bdW.insert("Productos", null, nuevo);
-            Cursor cu = bdR.rawQuery("SELECT p.id AS id FROM Productos AS p WHERE p.userID='nereagce' AND p.nombre='"+nombre+"'", null);
+            Cursor cu = bdR.rawQuery("SELECT p.id AS id FROM Productos AS p WHERE p.userID='"+nombreUsuario+"' AND p.nombre='"+nombre+"'", null);
             cu.moveToNext();
             id = cu.getInt(cu.getColumnIndex("id"));
         }else{
             id = c.getInt(c.getColumnIndex("id"));
         }
-        ContentValues nuevo = new ContentValues();
-        nuevo.put("cant", cant);
-        nuevo.put("productoID", id);
-        nuevo.put("caducidad", date);
-        bdW.insert("Cantidades", null, nuevo);
+
+        Cursor cur = bdR.rawQuery("SELECT c.cant FROM Cantidades AS c WHERE c.productoID="+id+" AND c.caducidad='"+date+"'", null);
+        if(cur.moveToNext()){
+            int cantidad = cur.getInt(cur.getColumnIndex("cant"));
+            int update = cantidad + Integer.parseInt(cant);
+            ContentValues modificacion = new ContentValues();
+            modificacion.put("cant",update);
+            String[] argumentos = new String[] {String.valueOf(id), date};
+            bdW.update("Cantidades", modificacion, "productoID=? AND caducidad=?", argumentos);
+            System.out.println("UPDATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        }else{
+            ContentValues nuevo = new ContentValues();
+            nuevo.put("cant", cant);
+            nuevo.put("productoID", id);
+            nuevo.put("caducidad", date);
+            bdW.insert("Cantidades", null, nuevo);
+        }
 
         finish();
         startActivity(getIntent());
@@ -112,6 +124,40 @@ public class MisProductos extends AppCompatActivity implements DialogoAñadirPro
 
     @Override
     public void alpulsarEliminar(String nom, String cant) {
+        BaseDeDatos gestorDB = new BaseDeDatos (this, "miDB", null, 1);
+        SQLiteDatabase bdR = gestorDB.getReadableDatabase();
+        SQLiteDatabase bdW = gestorDB.getWritableDatabase();
 
+        BufferedReader ficherointerno = null;
+        String nombreUsuario="";
+        try {
+            ficherointerno = new BufferedReader(new InputStreamReader(
+                    openFileInput("nombreUsuario.txt")));
+            nombreUsuario = ficherointerno.readLine();
+            ficherointerno.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Cursor c = bdR.rawQuery("SELECT p.id FROM Productos AS p WHERE p.userID='"+nombreUsuario+"' AND p.nombre='"+nom+"'", null);
+        int id;
+        if(!c.moveToNext()){
+            //EXCEPCION PRODUCTO NO EXISTE
+        }else{
+            id = c.getInt(c.getColumnIndex("id"));
+            Cursor cu = bdR.rawQuery("SELECT c.id,c.cant FROM Cantidades AS c WHERE c.productoID="+id, null);
+            if(cu.getCount()==1){
+                cu.moveToNext();
+                int cantidad = cu.getInt(cu.getColumnIndex("cant"));
+                int update = cantidad-Integer.valueOf(cant);
+                ContentValues modificacion = new ContentValues();
+                modificacion.put("cant",update);
+                String[] argumentos = new String[] {String.valueOf(id)};
+                bdW.update("Cantidades", modificacion, "productoID=?", argumentos);
+            }
+        }
+
+        finish();
+        startActivity(getIntent());
     }
 }

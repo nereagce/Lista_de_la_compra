@@ -24,6 +24,12 @@ public class MainActivity extends AppCompatActivity implements DialogHacerCompra
         startActivity(i);
     }
 
+    public void configurar(View view){
+        //cambiar a la actividad de minimos
+        Intent i = new Intent (this, Preferencias.class);
+        startActivity(i);
+    }
+
     public void minimos(View view){
         //cambiar a la actividad de minimos
         Intent i = new Intent (this, Minimos.class);
