@@ -46,7 +46,6 @@ public class DialogoAñadirProducto extends DialogFragment {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
-                // TODO Auto-generated method stub
 
                 fecha[0] = dayOfMonth+"/"+ (month+1) +"/"+year;
 

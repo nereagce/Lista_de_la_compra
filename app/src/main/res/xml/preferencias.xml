@@ -7,11 +7,5 @@
         <SwitchPreferenceCompat
             app:key="switch"
             app:title="Modo noche" />
-        <EditTextPreference
-            app:dialogIcon="@mipmap/ic_launcher"
-            app:dialogTitle="Introduce un nombre:"
-            app:key="nombre"
-            app:summary="Introduce tu nombre de usuario:"
-            app:title="Nombre" />
     </PreferenceCategory>
 </PreferenceScreen>
