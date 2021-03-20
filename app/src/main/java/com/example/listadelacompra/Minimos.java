@@ -1,15 +1,21 @@
 package com.example.listadelacompra;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.DialogFragment;
 
 import java.io.BufferedReader;
@@ -66,7 +72,8 @@ public class Minimos extends AppCompatActivity implements DialogoAñadirMinimo.L
     @Override
     public void alpulsarAñadir(String nom, String cant) {
         BaseDeDatos gestorDB = new BaseDeDatos (this, "miDB", null, 1);
-        SQLiteDatabase bd = gestorDB.getWritableDatabase();
+        SQLiteDatabase bdW = gestorDB.getWritableDatabase();
+        SQLiteDatabase bdR = gestorDB.getReadableDatabase();
 
         BufferedReader ficherointerno = null;
         String nombreUsuario="";
@@ -78,14 +85,36 @@ public class Minimos extends AppCompatActivity implements DialogoAñadirMinimo.L
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Cursor c = bdR.rawQuery("SELECT * FROM Productos AS p WHERE p.userID='"+nombreUsuario+"' AND nombre='"+nom+"'",null);
+        if(c.moveToNext()) {
+            ContentValues modificacion = new ContentValues();
+            modificacion.put("cantMin", cant);
+            String[] argumentos = new String[]{nom, nombreUsuario};
+            bdW.update("Productos", modificacion, "nombre=? AND userID=?", argumentos);
 
-        ContentValues modificacion = new ContentValues();
-        modificacion.put("cantMin",cant);
-        String[] argumentos = new String[] {nom, nombreUsuario};
-        bd.update("Productos", modificacion, "nombre=? AND userID=?", argumentos);
-
-        finish();
-        startActivity(getIntent());
+            finish();
+            startActivity(getIntent());
+        } else{
+            NotificationManager elManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationCompat.Builder elBuilder = new NotificationCompat.Builder(this, "IdCanal");
+            elBuilder.setSmallIcon(android.R.drawable.stat_sys_warning)
+                    .setContentTitle("Mensaje de Alerta")
+                    .setContentText("El producto no existe")
+                    .setSubText("Información extra")
+                    .setVibrate(new long[]{0, 1000, 500, 1000})
+                    .setAutoCancel(true);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel elCanal = new NotificationChannel("IdCanal", "NombreCanal",
+                        NotificationManager.IMPORTANCE_DEFAULT);
+                elCanal.setDescription("Descripción del canal");
+                elCanal.enableLights(true);
+                elCanal.setLightColor(Color.RED);
+                elCanal.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+                elCanal.enableVibration(true);
+                elManager.createNotificationChannel(elCanal);
+            }
+            elManager.notify(1, elBuilder.build());
+        }
     }
 
 }
