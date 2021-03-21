@@ -46,8 +46,6 @@ public class MinimosListView extends BaseAdapter {
         producto.setText(prod.get(position));
         String k = String.valueOf(min.get(position));
         cantidad.setText(k);
-        //ImageButton c = btn.get(position);
-        //boton.set
 
         return view;
     }

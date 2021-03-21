@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Shopping list "</string>
+    <string name="user">User:</string>
+    <string name="pass">Password:</string>
+    <string name="login">Log in</string>
+    <string name="irReg">I don´t have an account</string>
+    <string name="misProductos">My products</string>
+    <string name="cantidadesMinimas">Minimum amounts</string>
+    <string name="generarLista">Create shopping list</string>
+    <string name="hacerCompra">Go shopping</string>
+    <string name="producto">Product:</string>
+    <string name="cantidad">Amount:</string>
+    <string name="caducaen">Expires on:</string>
+    <string name="PROD">PRODUCT</string>
+    <string name="MIN">MINIMUM</string>
+    <string name="editarRegla">Edit rule</string>
+    <string name="CAD">EXPIRING</string>
+    <string name="CANT">AMOUNT</string>
+    <string name="heComprado">I\'ve bought</string>
+    <string name="heGastado">I\'ve used</string>
+    <string name="nombre">Name:</string>
+    <string name="nombreUser">Username:</string>
+    <string name="registrarme">Register</string>
+    <string name="yaTengoCuenta">I have an account</string>
+    <string name="modonoche">Night mode</string>
+    <string name="pref">Preferences</string>
+    <string name="idioma">Language</string>
+    <string name="alerta">Alert message</string>
+    <string name="yaexiste">Username already exists</string>
+    <string name="extrainfo">Extra information</string>
+    <string name="loginmal">Invalid login</string>
+    <string name="horadecompra">Time to go shopping! The  amount is lower that the minimum</string>
+    <string name="añadir">Add</string>
+    <string name="cancelar">Cancel</string>
+    <string name="eliminar">Delete</string>
+    <string name="abrir">Open</string>
+    <string name="quesuper">Which supermarket?</string>
+    <string name="añadirmin">Add minimum amount</string>
+    <string name="añadirprod">Add product</string>
+    <string name="eliminarprod">Delete product</string>
+    <string name="norelleno">You haven´t filled in all the fields</string>
+</resources>

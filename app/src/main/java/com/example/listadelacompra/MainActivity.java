@@ -15,41 +15,43 @@ public class MainActivity extends AppCompatActivity implements DialogHacerCompra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
 
     public void misProductos(View view){
-        //cambiar a la actividad de mis productos
+        //Cambiar a la actividad de mis productos
         Intent i = new Intent (this, MisProductos.class);
         startActivity(i);
     }
 
     public void abrirPreferencias(View view){
-        //cambiar a la actividad de minimos
+        //Cambiar a la actividad de preferencias
         Intent i = new Intent (this, PreferenciasActivity.class);
         startActivity(i);
     }
 
     public void minimos(View view){
-        //cambiar a la actividad de minimos
+        //Cambiar a la actividad de minimos
         Intent i = new Intent (this, Minimos.class);
         startActivity(i);
     }
 
     public void generarLista(View view){
-        //cambiar a la actividad de config
+        //Cambiar a la actividad de generar lista de la compra
         Intent i = new Intent (this, GenerarLista.class);
         startActivity(i);
     }
 
     public void abrirNavegador(View view){
-        //cambiar a la actividad de config
+        //Abrir el diálogo para elegir en qué supermercado queremos hacer la compra
         DialogFragment dialogoalerta= new DialogHacerCompra();
         dialogoalerta.show(getSupportFragmentManager(), "etiqueta");
     }
 
     @Override
     public void alpulsarAbrir(String url) {
+        //Usando intents implícitos abrir en el navegador la url del supermercado seleccionado
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(i);
     }

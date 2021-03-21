@@ -26,6 +26,7 @@ public class GenerarLista extends AppCompatActivity {
 
         ListView lista = findViewById(R.id.listGen);
 
+        //Leer nombre de usuario del fichero de texto
         BufferedReader ficherointerno = null;
         String nombreUsuario="";
         try {
@@ -37,38 +38,36 @@ public class GenerarLista extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
+        //Cargar la base de datos en modo lectura
         BaseDeDatos gestorDB = new BaseDeDatos (this, "miDB", null, 1);
         SQLiteDatabase bdR = gestorDB.getReadableDatabase();
 
+        //Hacer la consulta para recorrer todos los productos de este usuario
         Cursor c = bdR.rawQuery("SELECT p.id,p.cantMin,p.nombre FROM Productos AS p WHERE p.userID='"+nombreUsuario+"'", null);
         ArrayList<String> productos = new ArrayList<String>();
 
-        while(c.moveToNext()) {
+        while(c.moveToNext()) {//Para cada producto
             int id = c.getInt(c.getColumnIndex("id"));
             int cantMin = c.getInt(c.getColumnIndex("cantMin"));
             String nom = c.getString(c.getColumnIndex("nombre"));
+            //Consulta para saber la cantidad total del producto que tenemos
             Cursor cSum = bdR.rawQuery("SELECT SUM(c.cant) AS suma FROM Cantidades AS c WHERE c.productoID=" + id, null);
             cSum.moveToNext();
             int sum = cSum.getInt(cSum.getColumnIndex("suma"));
-            if(sum<=cantMin){
-                productos.add(nom);
+            if(sum<=cantMin){ //Si la cantidad almacenada es menor o igual al mínimo, añadir el producto a la lista
+                productos.add(nom);//Añadir a la lista
             }
         }
-
+        //Crear el adaptador para que el ListView sea una lista donde podamos seleccionar diferentes elementos
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, productos);
         lista.setAdapter(arrayAdapter);
         lista.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {//Cuando se pulse uno d los elementos
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Log.i(TAG, "onItemClick: " +position);
                 CheckedTextView v = (CheckedTextView) view;
-                boolean currentCheck = v.isChecked();
-                //CheckBox prod = (CheckBox) lista.getItemAtPosition(position);
-                //prod.setChecked(!currentCheck);
-                v.setChecked(currentCheck);
+                boolean currentCheck = v.isChecked();//Comprobar si está seleccionado
+                v.setChecked(currentCheck);//Si está seleccionado quitará el ckeck y si no lo está lo pondrá
             }
         });
     }

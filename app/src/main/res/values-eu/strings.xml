@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Erosketa zerrenda</string>
+    <string name="user">Erabiltzailea:</string>
+    <string name="pass">Pasahitza:</string>
+    <string name="login">Sartu</string>
+    <string name="irReg">Ez dut konturik</string>
+    <string name="misProductos">Nire produktuak</string>
+    <string name="cantidadesMinimas">Kopuru minimoak</string>
+    <string name="generarLista">Erosketa zerrenda sortu</string>
+    <string name="hacerCompra">Erosketak egin</string>
+    <string name="producto">Produktua:</string>
+    <string name="cantidad">Kopurua:</string>
+    <string name="caducaen">Iraungitze data:</string>
+    <string name="PROD">PRODUKTUA</string>
+    <string name="MIN">MINIMOA</string>
+    <string name="editarRegla">Araua editatu</string>
+    <string name="CAD">IRAUNGI</string>
+    <string name="CANT">KOPURUA</string>
+    <string name="heComprado">Erosi dut</string>
+    <string name="heGastado">Gastatu dut</string>
+    <string name="nombre">Izena:</string>
+    <string name="nombreUser">Erabiltzaile izena:</string>
+    <string name="registrarme">Erregistratu</string>
+    <string name="yaTengoCuenta">Kontu bat daukat</string>
+    <string name="modonoche">Gau modua</string>
+    <string name="pref">Ezarpenak</string>
+    <string name="idioma">Lengoaia</string>
+    <string name="alerta">Alerta mezua</string>
+    <string name="yaexiste">Erabiltzaile izena jada existitzen da</string>
+    <string name="extrainfo">Informazio gehigarria</string>
+    <string name="loginmal">Login ezuzena</string>
+    <string name="horadecompra">Erosketak egiteko ordua! Kopurua minimoa baino baxuagoa da</string>
+    <string name="añadir">Gehitu</string>
+    <string name="cancelar">Deuseztatu</string>
+    <string name="eliminar">Ezabatu</string>
+    <string name="abrir">Ireki</string>
+    <string name="quesuper">Zein supermerkatuan?</string>
+    <string name="añadirmin">Gehitu kopuru minimoa</string>
+    <string name="añadirprod">Produktua gehitu</string>
+    <string name="eliminarprod">Produktua ezabatu</string>
+    <string name="norelleno">Ez duzu daturen bat bete</string>
+</resources>

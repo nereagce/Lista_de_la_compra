@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Lista de la compra </string>
+    <string name="app_name">"Lista de la compra "</string>
     <string name="user">Usuario:</string>
     <string name="pass">Contraseña:</string>
     <string name="login">Entrar</string>
@@ -14,8 +15,8 @@
     <string name="PROD">PRODUCTO</string>
     <string name="MIN">MÍNIMO</string>
     <string name="editarRegla">Editar regla</string>
-    <string name="CANT">CANTIDAD</string>
     <string name="CAD">CADUCIDAD</string>
+    <string name="CANT">CANTIDAD</string>
     <string name="heComprado">He comprado</string>
     <string name="heGastado">He gastado</string>
     <string name="nombre">Nombre:</string>
@@ -29,7 +30,7 @@
     <string name="yaexiste">El nombre de usuario ya existe</string>
     <string name="extrainfo">Información extra</string>
     <string name="loginmal">Login incorrecto</string>
-    <string name="horadecompra">¡Hora de hacer la compra! Las existencias están por debajo del mínimo</string>
+    <string name="horadecompra">¡Hora de hacer la compra! Las existencias de están por debajo del mínimo</string>
     <string name="añadir">Añadir</string>
     <string name="cancelar">Cancelar</string>
     <string name="eliminar">Eliminar</string>
@@ -38,5 +39,5 @@
     <string name="añadirmin">Añadir cantidad mínima</string>
     <string name="añadirprod">Añadir producto</string>
     <string name="eliminarprod">Eliminar producto</string>
-    <string name="norelleno">No ha rellenado alguno de los campos</string>
+    <string name="norelleno">No has rellenado alguno de los campos</string>
 </resources>

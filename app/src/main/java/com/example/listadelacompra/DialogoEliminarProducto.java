@@ -15,7 +15,7 @@ import androidx.fragment.app.DialogFragment;
 public class DialogoEliminarProducto extends DialogFragment {
     ListenerdelDialogo miListener;
 
-    public interface ListenerdelDialogo {
+    public interface ListenerdelDialogo { //Implementada en MisProductos
         void alpulsarEliminar(String nom, String cant);
     }
     @NonNull
@@ -25,23 +25,24 @@ public class DialogoEliminarProducto extends DialogFragment {
         miListener =(ListenerdelDialogo) getActivity();
 
         AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
-        builder.setTitle("Eliminar producto");
+        builder.setTitle(getString(R.string.eliminarprod));
         //builder.setMessage("Introduzca el producto y la cantidad");
 
+        //Establecer la personalización
         LayoutInflater inflater=getActivity().getLayoutInflater();
         View elaspecto= inflater.inflate(R.layout.dialogo_eliminar_producto,null);
 
         miListener =(ListenerdelDialogo) getActivity();
 
-        builder.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.eliminar), new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which) { //Cuando se pulse el botón eliminar se recogerán los datos y se llamará al método que gestiona la respuesta
                 EditText nombre= (EditText) elaspecto.findViewById(R.id.prodElimTxt);
                 EditText cant= (EditText) elaspecto.findViewById(R.id.cantElimTxt);
                 miListener.alpulsarEliminar(nombre.getText().toString(),cant.getText().toString());
             }
         });
-        builder.setNegativeButton("Cancelar", null);
+        builder.setNegativeButton(getString(R.string.cancelar), null);
         builder.setView(elaspecto);
 
         return builder.create();

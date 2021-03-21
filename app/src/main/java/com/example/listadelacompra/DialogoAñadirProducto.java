@@ -22,7 +22,7 @@ import java.util.Date;
 public class DialogoAñadirProducto extends DialogFragment {
     ListenerdelDialogo miListener;
 
-    public interface ListenerdelDialogo {
+    public interface ListenerdelDialogo { //Implementada en MisProductos
         void alpulsarAñadir(String nom, String cant, String date) throws IOException;
     }
     @NonNull
@@ -32,15 +32,17 @@ public class DialogoAñadirProducto extends DialogFragment {
         miListener =(ListenerdelDialogo) getActivity();
 
         AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
-        builder.setTitle("Añadir producto");
+        builder.setTitle(getString(R.string.añadirprod));
         //builder.setMessage("Introduzca el producto y la cantidad");
 
+        //Le damos el aspecto personalizado
         LayoutInflater inflater=getActivity().getLayoutInflater();
         View elaspecto= inflater.inflate(R.layout.dialogo_anadir_producto,null);
 
         miListener =(ListenerdelDialogo) getActivity();
         final String[] fecha = new String[1];
 
+        //Para elegir la fecha de caducidad utilizamos un CalendarView que nos guardará la fecha seleccionada cada vez que se cambie utilizando un listener
         CalendarView date= (CalendarView) elaspecto.findViewById(R.id.calendarView);
         date.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -52,19 +54,21 @@ public class DialogoAñadirProducto extends DialogFragment {
             }
         });
 
-        builder.setPositiveButton("Añadir", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.añadir), new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which) { //Al pulsar en el botón
+                //Recogemos los datos introducidos
                 EditText nombre= (EditText) elaspecto.findViewById(R.id.prodAñadTxt);
                 EditText cant= (EditText) elaspecto.findViewById(R.id.cantAñadTxt);
                 try {
+                    //Llamamos al método que gestiona la respuesta con los datos correspondientes
                     miListener.alpulsarAñadir(nombre.getText().toString(),cant.getText().toString(), fecha[0]);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
-        builder.setNegativeButton("Cancelar", null);
+        builder.setNegativeButton(getString(R.string.cancelar), null);
         builder.setView(elaspecto);
 
 

@@ -31,9 +31,11 @@ public class Minimos extends AppCompatActivity implements DialogoAñadirMinimo.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.minimos);
 
+        //Cargar la base de datos en modo lectura
         BaseDeDatos gestorDB = new BaseDeDatos (this, "miDB", null, 1);
         SQLiteDatabase bd = gestorDB.getReadableDatabase();
 
+        //Leer el nombre de usuario del fichero de texto
         BufferedReader ficherointerno = null;
         String nombreUsuario="";
         try {
@@ -45,7 +47,7 @@ public class Minimos extends AppCompatActivity implements DialogoAñadirMinimo.L
             e.printStackTrace();
         }
 
-        //HAY QUE CAMBIAR LA CONSULTA
+        //Leer de la base de datos las cantidades mínimas de cada producto marcadas por el usuario
         String[] campos = new String[] {"nombre", "cantMin"};
         String[] argumentos = new String[] {nombreUsuario};
         Cursor c = bd.query("Productos",campos,"userID=?",argumentos,null,null,null);
@@ -58,23 +60,26 @@ public class Minimos extends AppCompatActivity implements DialogoAñadirMinimo.L
             String nom = c.getString(0);
             nombres.add(nom);
         }
+        //Rellenar el listview con los datos obtenidos
         ListView productos= (ListView) findViewById(R.id.listMinimos);
         MinimosListView eladap= new MinimosListView(getApplicationContext(),nombres,cantidades);
         productos.setAdapter(eladap);
     }
 
     public void añadirMinimo(View view){
-        //cambiar a la actividad de config
+        //Abrir diálogo para editar la cantidad mínima de un producto
         DialogFragment dialogoalerta= new DialogoAñadirMinimo();
         dialogoalerta.show(getSupportFragmentManager(), "etiqueta");
     }
 
     @Override
     public void alpulsarAñadir(String nom, String cant) {
+        //Cargar base de datos en modo lectura y escritura
         BaseDeDatos gestorDB = new BaseDeDatos (this, "miDB", null, 1);
         SQLiteDatabase bdW = gestorDB.getWritableDatabase();
         SQLiteDatabase bdR = gestorDB.getReadableDatabase();
 
+        //Leer nombre de usuario del fichero de texto
         BufferedReader ficherointerno = null;
         String nombreUsuario="";
         try {
@@ -85,16 +90,21 @@ public class Minimos extends AppCompatActivity implements DialogoAñadirMinimo.L
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //Realizar la consulta para comprobar si el producto existe
         Cursor c = bdR.rawQuery("SELECT * FROM Productos AS p WHERE p.userID='"+nombreUsuario+"' AND nombre='"+nom+"'",null);
-        if(c.moveToNext()) {
+        if(c.moveToNext()) { //Si existe
+            //Actualizar el registro con el mínimo indicado por el usuario
             ContentValues modificacion = new ContentValues();
             modificacion.put("cantMin", cant);
             String[] argumentos = new String[]{nom, nombreUsuario};
             bdW.update("Productos", modificacion, "nombre=? AND userID=?", argumentos);
 
+            //Recargar la actividad
             finish();
             startActivity(getIntent());
-        } else{
+        } else{//Si no existe
+            //Notificar al usuario del error
             NotificationManager elManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationCompat.Builder elBuilder = new NotificationCompat.Builder(this, "IdCanal");
             elBuilder.setSmallIcon(android.R.drawable.stat_sys_warning)

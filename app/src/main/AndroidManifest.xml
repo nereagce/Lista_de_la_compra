@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ListaDeLaCompra">
+        android:theme="@style/miTema">
         <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".GenerarLista" >
