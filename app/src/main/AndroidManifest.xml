@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.listadelacompra">
+    <uses-feature android:name="android.hardware.camera2.full" android:required="true"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
+        android:usesCleartextTraffic="true"
         android:launchMode="singleTop"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,24 +16,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/miTema">
-        <activity android:name=".MainActivity">
+        <provider
+            android:authorities="com.example.listadelacompra.provider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider"/>
+        </provider>
+        <service
+            android:name=".mensajesFCM.ServicioFirebase"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <activity android:name=".principal.MainActivity">
         </activity>
-        <activity android:name=".GenerarLista" >
+        <activity android:name=".generarlista.GenerarLista" >
         </activity>
-        <activity android:name=".MisProductos" >
+        <activity android:name=".misproductos.MisProductos" >
         </activity>
-        <activity android:name=".Login" >
+        <activity android:name=".login.Login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Registrarse" >
+        <activity android:name=".registro.Registrarse" >
         </activity>
-        <activity android:name=".Minimos" >
+        <activity android:name=".minimos.Minimos" >
         </activity>
-        <activity android:name=".PreferenciasActivity" >
+        <activity android:name=".preferencias.PreferenciasActivity" >
+        </activity>
+        <activity android:name=".perfil.Perfil" >
         </activity>
     </application>
 

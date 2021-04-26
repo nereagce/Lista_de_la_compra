@@ -1,13 +1,19 @@
-package com.example.listadelacompra;
+package com.example.listadelacompra.principal;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.listadelacompra.preferencias.PreferenciasActivity;
+import com.example.listadelacompra.R;
+import com.example.listadelacompra.generarlista.GenerarLista;
+import com.example.listadelacompra.minimos.Minimos;
+import com.example.listadelacompra.misproductos.MisProductos;
+import com.example.listadelacompra.perfil.Perfil;
 
 public class MainActivity extends AppCompatActivity implements DialogHacerCompra.ListenerdelDialogo{
 
@@ -47,6 +53,12 @@ public class MainActivity extends AppCompatActivity implements DialogHacerCompra
         //Abrir el diálogo para elegir en qué supermercado queremos hacer la compra
         DialogFragment dialogoalerta= new DialogHacerCompra();
         dialogoalerta.show(getSupportFragmentManager(), "etiqueta");
+    }
+
+    public void abrirPerfil(View view){
+        //Abrir la actividad del perfil del usuario
+        Intent i = new Intent (this, Perfil.class);
+        startActivity(i);
     }
 
     @Override

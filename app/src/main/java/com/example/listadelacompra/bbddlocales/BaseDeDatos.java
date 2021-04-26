@@ -1,4 +1,4 @@
-package com.example.listadelacompra;
+package com.example.listadelacompra.bbddlocales;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

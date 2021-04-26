@@ -1,4 +1,4 @@
-package com.example.listadelacompra;
+package com.example.listadelacompra.preferencias;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -10,6 +10,8 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+
+import com.example.listadelacompra.R;
 
 import java.util.Locale;
 

@@ -1,4 +1,4 @@
-package com.example.listadelacompra;
+package com.example.listadelacompra.minimos;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.listadelacompra.R;
 
 import java.util.ArrayList;
 import java.util.Date;

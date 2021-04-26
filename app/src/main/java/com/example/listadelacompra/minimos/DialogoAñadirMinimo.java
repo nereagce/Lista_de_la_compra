@@ -1,4 +1,4 @@
-package com.example.listadelacompra;
+package com.example.listadelacompra.minimos;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.listadelacompra.R;
 
 public class DialogoAñadirMinimo extends DialogFragment {
     ListenerdelDialogo miListener;

@@ -1,12 +1,12 @@
-package com.example.listadelacompra;
+package com.example.listadelacompra.preferencias;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.listadelacompra.R;
 
 import java.util.Locale;
 

@@ -1,4 +1,4 @@
-package com.example.listadelacompra;
+package com.example.listadelacompra.principal;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,6 +13,8 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.listadelacompra.R;
 
 public class DialogHacerCompra extends DialogFragment {
     ListenerdelDialogo miListener;
