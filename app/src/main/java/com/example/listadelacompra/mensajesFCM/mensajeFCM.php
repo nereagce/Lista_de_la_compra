@@ -1,7 +1,7 @@
 <?php
 #Creamos la cabecera con la clave e indicando que los datos irán en formato json
 $cabecera= array(
-'Authorization: key=AAAA9EqJroY:APA91bEHQzwKUEI_NhZM-NQ7MuLbw1j3F96i4jkTqqxtRnEeXW3zzx-BD4cYNKMtNxwd7cs29cm525ImD-R3a1icYEn6ZXNFpp8CiTtcmclclnJq81ddFxgXvV-uV_oLnlyZragpOH1N',
+'Authorization: key=...',
 'Content-Type: application/json'
 );
 
